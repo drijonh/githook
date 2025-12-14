@@ -59,7 +59,7 @@ func WorkflowRun(w http.ResponseWriter, r *http.Request, url string, client *red
 			return
 		}
 
-		if job.Conclusions != "success" {
+		if job.Conclusions != "success" && job.Conclusions != "cancelled" && job.Conclusions != "skipped" {
 			conclusion = job.Conclusions
 		}
 
@@ -90,13 +90,20 @@ func WorkflowRun(w http.ResponseWriter, r *http.Request, url string, client *red
 					),
 					Description: desc,
 					URL:         *body.Repo.HTMLURL + "/actions",
-					Color: utils.Ternary(
-						conclusion == "success",
-						utils.GetColors().Success,
-						utils.GetColors().Error,
-					).(int),
+					Color:       getColor(conclusion),
 				},
 			},
 		},
 	)
+}
+
+func getColor(conclusion string) int {
+	switch conclusion {
+	case "success":
+		return utils.GetColors().Success
+	case "failure":
+		return utils.GetColors().Error
+	default:
+		return utils.GetColors().Default
+	}
 }
