@@ -20,18 +20,18 @@ func Push(w http.ResponseWriter, r *http.Request, url string) {
 		return
 	}
 
-	var desc string
+	var desc strings.Builder
 	for _, c := range body.Commits {
 		commit := *c
-		desc += fmt.Sprintf(
+		desc.WriteString(fmt.Sprintf(
 			"[`%s`](%s) %s\n",
 			(*commit.ID)[:7],
 			*commit.URL,
 			utils.Truncate(
 				strings.Split(*commit.Message, "\n")[0],
-			 62,
+				62,
 			),
-		)
+		))
 	}
 
 	branch := strings.Split(*body.Ref, "/heads/")[1]
@@ -55,7 +55,7 @@ func Push(w http.ResponseWriter, r *http.Request, url string) {
 						utils.Ternary(len(body.Commits) > 1, "s", ""),
 					),
 					URL:         *body.Compare,
-					Description: utils.Truncate(desc, 4000),
+					Description: utils.Truncate(desc.String(), 4000),
 					Color:       utils.GetColors().Default,
 				},
 			},

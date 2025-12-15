@@ -9,14 +9,14 @@ type WebhookPayload struct {
 }
 
 type Embed struct {
-	Author      EmbedAuthor  `json:"author,omitempty"`
+	Author      EmbedAuthor  `json:"author"`
 	Title       string       `json:"title,omitempty"`
 	Description string       `json:"description,omitempty"`
 	URL         string       `json:"url,omitempty"`
 	Timestamp   string       `json:"timestamp,omitempty"`
 	Color       int          `json:"color,omitempty"`
 	Fields      []EmbedField `json:"fields,omitempty"`
-	Footer      EmbedFooter  `json:"footer,omitempty"`
+	Footer      EmbedFooter  `json:"footer"`
 }
 
 type EmbedField struct {

@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"strings"
 	"time"
 
 	"github.com/Luna-devv/githook/discord"
@@ -42,7 +43,7 @@ func WorkflowRun(w http.ResponseWriter, r *http.Request, url string, client *red
 	defer client.Del(r.Context(), keys...)
 
 	conclusion := "success"
-	desc := ""
+	var desc strings.Builder
 
 	for _, key := range keys {
 		data, err := client.Get(r.Context(), key).Result()
@@ -63,7 +64,7 @@ func WorkflowRun(w http.ResponseWriter, r *http.Request, url string, client *red
 			conclusion = job.Conclusions
 		}
 
-		desc += fmt.Sprintf(
+		fmt.Fprintf(&desc,
 			"%s %s [↗︎](%s)\n",
 			utils.Ternary(job.Conclusions == "success", "<:tick:1017781086102761543>", "<:cross:1017781065340964934>"),
 			job.Name,
@@ -88,7 +89,7 @@ func WorkflowRun(w http.ResponseWriter, r *http.Request, url string, client *red
 						),
 						conclusion,
 					),
-					Description: desc,
+					Description: desc.String(),
 					URL:         *body.Repo.HTMLURL + "/actions",
 					Color:       getColor(conclusion),
 				},
