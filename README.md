@@ -1,6 +1,6 @@
 [![](https://img.shields.io/discord/828676951023550495?color=5865F2&logo=discord&logoColor=white)](https://lunish.nl/support)
-![](https://ghcr-badge.egpl.dev/luna-devv/githook/latest_tag)
-![](https://ghcr-badge.egpl.dev/luna-devv/githook/size)
+![](https://ghcr-badge.egpl.dev/shi-gg/githook/latest_tag)
+![](https://ghcr-badge.egpl.dev/shi-gg/githook/size)
 
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/I3I6AFVAP)
 
@@ -17,22 +17,20 @@ If you need help developing with this, join **[our Discord Server](https://disco
 To deploy this project, create the following `docker-compose.yml`:
 ```yml
 services:
-  app:
-    image: ghcr.io/luna-devv/githook:latest
-    container_name: githook
-    ports:
-      - "8080:8080"
-    restart: unless-stopped
-    volumes:
-      - ./.env:/app/.env
-```
-
-Create a `.env` file with the following values:
-```env
-REDIS_USR=""
-REDIS_PW=""
-REDIS_ADDR="127.0.0.1:6379"
-SECRET="replace-me-with-a-random-string"
+    githook:
+        container_name: githook
+        image: ghcr.io/shi-gg/githook:latest
+        build:
+            context: .
+            dockerfile: Dockerfile
+        ports:
+            - "8080:8080"
+        restart: unless-stopped
+        environment:
+            REDIS_USR: ""
+            REDIS_PW: ""
+            REDIS_ADDR: "127.0.0.1:6379"
+            SECRET: "replace-me-with-a-random-string"
 ```
 
 To deploy the project, run:
@@ -40,7 +38,7 @@ To deploy the project, run:
 docker compose up -d
 ```
 
-## Develope
+## Develop
 Clone this repo and start the server with the following commands:
 ```bash
 git clone https://github.com/shi-gg/githook

@@ -1,8 +1,15 @@
-version: '3'
 services:
-  nekostic:
-    container_name: githook
-    image: githook
-    ports:
-      - "5004:8080"
-    restart: unless-stopped
+    githook:
+        container_name: githook
+        image: githook
+        build:
+            context: .
+            dockerfile: Dockerfile
+        ports:
+            - "7001:8080"
+        restart: unless-stopped
+        environment:
+            REDIS_USR: ""
+            REDIS_PW: ""
+            REDIS_ADDR: "chi:6379"
+            SECRET: "replace-me-with-a-random-string"
