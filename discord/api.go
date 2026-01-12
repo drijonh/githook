@@ -36,7 +36,7 @@ func SendWebhook(url string, payload WebhookPayload) {
 	}
 
 	if res.StatusCode != http.StatusNoContent {
-		log.Fatalln("Error occurred", res.Status)
+		log.Println("Error occurred", res.Status)
 		body := new(bytes.Buffer)
 		body.ReadFrom(res.Body)
 		fmt.Println(body.String())
