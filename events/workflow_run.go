@@ -7,10 +7,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/shi-gg/githook/discord"
-	"github.com/shi-gg/githook/utils"
 	"github.com/google/go-github/v61/github"
 	"github.com/redis/go-redis/v9"
+	"github.com/shi-gg/githook/discord"
+	"github.com/shi-gg/githook/utils"
 )
 
 func WorkflowRun(w http.ResponseWriter, r *http.Request, url string, client *redis.Client) {

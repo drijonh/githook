@@ -4,11 +4,11 @@ import (
 	"fmt"
 	"net/http"
 
+	_ "github.com/joho/godotenv/autoload"
+	"github.com/redis/go-redis/v9"
 	"github.com/shi-gg/githook/config"
 	"github.com/shi-gg/githook/events"
 	"github.com/shi-gg/githook/utils"
-	_ "github.com/joho/godotenv/autoload"
-	"github.com/redis/go-redis/v9"
 )
 
 func HandleIncoming(w http.ResponseWriter, r *http.Request, client *redis.Client) {
@@ -43,6 +43,8 @@ func HandleIncoming(w http.ResponseWriter, r *http.Request, client *redis.Client
 		events.WorkflowJob(w, r, client)
 	case "workflow_run":
 		events.WorkflowRun(w, r, url, client)
+	case "release":
+		events.Release(w, r, url)
 	default:
 		http.Error(w, fmt.Sprintf("Unsupported event: %s", githubEvent), http.StatusBadRequest)
 		return

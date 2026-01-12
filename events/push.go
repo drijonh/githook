@@ -6,9 +6,9 @@ import (
 	"net/http"
 	"strings"
 
+	"github.com/google/go-github/v61/github"
 	"github.com/shi-gg/githook/discord"
 	"github.com/shi-gg/githook/utils"
-	"github.com/google/go-github/v61/github"
 )
 
 func Push(w http.ResponseWriter, r *http.Request, url string) {

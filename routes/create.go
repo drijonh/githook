@@ -3,9 +3,9 @@ package routes
 import (
 	"net/http"
 
+	_ "github.com/joho/godotenv/autoload"
 	"github.com/shi-gg/githook/config"
 	"github.com/shi-gg/githook/utils"
-	_ "github.com/joho/godotenv/autoload"
 )
 
 func HandleCreate(w http.ResponseWriter, r *http.Request) {

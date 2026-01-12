@@ -3,10 +3,10 @@ package main
 import (
 	"net/http"
 
-	"github.com/shi-gg/githook/config"
-	"github.com/shi-gg/githook/routes"
 	_ "github.com/joho/godotenv/autoload"
 	"github.com/redis/go-redis/v9"
+	"github.com/shi-gg/githook/config"
+	"github.com/shi-gg/githook/routes"
 )
 
 var conf = config.Get()

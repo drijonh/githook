@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/google/go-github/v61/github"
 	"github.com/shi-gg/githook/discord"
 	"github.com/shi-gg/githook/utils"
-	"github.com/google/go-github/v61/github"
 )
 
 func Star(w http.ResponseWriter, r *http.Request, url string) {
@@ -29,7 +29,7 @@ func Star(w http.ResponseWriter, r *http.Request, url string) {
 					Title: fmt.Sprintf("%s: Star added", *body.Repo.FullName),
 					URL:   *body.Repo.HTMLURL,
 					Description: fmt.Sprintf(
-						"⭐ %s now has **%d star%s**",
+						"-# ⭐ %s now has **%d star%s**",
 						*body.Repo.Name,
 						*body.Repo.StargazersCount,
 						utils.Ternary(*body.Repo.StargazersCount > 1, "s", ""),
