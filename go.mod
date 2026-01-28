@@ -5,7 +5,7 @@ go 1.24.4
 require (
 	github.com/google/go-github/v61 v61.0.1-0.20240403195118-24209f034709
 	github.com/joho/godotenv v1.5.1
-	github.com/redis/go-redis/v9 v9.17.2
+	github.com/redis/go-redis/v9 v9.17.3
 )
 
 require (

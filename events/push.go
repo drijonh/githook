@@ -20,10 +20,15 @@ func Push(w http.ResponseWriter, r *http.Request, url string) {
 		return
 	}
 
+	branch := strings.Split(*body.Ref, "/heads/")[1]
+	if strings.HasPrefix(branch, "gh-readonly-queue/") || strings.HasPrefix(branch, "pr-") {
+		return
+	}
+
 	var desc strings.Builder
 	for _, c := range body.Commits {
 		commit := *c
-		desc.WriteString(fmt.Sprintf(
+		fmt.Fprintf(&desc,
 			"[`%s`](%s) %s\n",
 			(*commit.ID)[:7],
 			*commit.URL,
@@ -31,16 +36,14 @@ func Push(w http.ResponseWriter, r *http.Request, url string) {
 				strings.Split(*commit.Message, "\n")[0],
 				62,
 			),
-		))
+		)
 	}
-
-	branch := strings.Split(*body.Ref, "/heads/")[1]
 
 	discord.SendWebhook(
 		url,
 		discord.WebhookPayload{
-			Username:  *body.Sender.Login,
-			AvatarURL: *body.Sender.AvatarURL,
+			Username:  *body.HeadCommit.Committer.Login,
+			AvatarURL: fmt.Sprintf("https://github.com/%s.png", *body.HeadCommit.Committer.Login),
 			Embeds: []discord.Embed{
 				{
 					Title: fmt.Sprintf(
