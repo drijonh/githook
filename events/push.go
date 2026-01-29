@@ -42,8 +42,8 @@ func Push(w http.ResponseWriter, r *http.Request, url string) {
 	discord.SendWebhook(
 		url,
 		discord.WebhookPayload{
-			Username:  *body.HeadCommit.Committer.Login,
-			AvatarURL: fmt.Sprintf("https://github.com/%s.png", *body.HeadCommit.Committer.Login),
+			Username:  *body.HeadCommit.Author.Login,
+			AvatarURL: fmt.Sprintf("https://github.com/%s.png", *body.HeadCommit.Author.Login),
 			Embeds: []discord.Embed{
 				{
 					Title: fmt.Sprintf(
